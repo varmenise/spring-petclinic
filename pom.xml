@@ -374,10 +374,10 @@
 					<compilerArguments>
 						<Xlint />
 					</compilerArguments>
-					<verbose>true</verbose>
+					<verbose>false</verbose>
 					<source>${java.version}</source>
 					<target>${java.version}</target>
-					<showWarnings>true</showWarnings>
+					<showWarnings>false</showWarnings>
 				</configuration>
 			</plugin>
 			<plugin>
