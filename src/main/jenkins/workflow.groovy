@@ -11,59 +11,62 @@ def productionCatalinaBase = '/opt/apache-tomcat-8-production'
 def productionHttpPort = 8083
 
 
-stage 'DEV'
-node('linux') {
-    // COMPILE AND JUNIT
+stage 'Build'
+node('linux') { // COMPILE AND JUNIT
     def src = 'https://github.com/cyrille-leclerc/spring-petclinic.git'
     // def src = '/Users/cleclerc/git/cyrille-leclerc/spring-petclinic'
     git url: src
 
     ensureMaven()
     sh 'mvn -o clean package'
-    archive 'src/, pom.xml, target/petclinic.war'
+    sh 'tar -c -f src.tar src/ pom.xml'
+    archive 'src.tar, target/petclinic.war'
     step $class: 'hudson.tasks.junit.JUnitResultArchiver', testResults: 'target/surefire-reports/*.xml'
 }
 
+stage name: 'Quality analysis and Perfs', concurrency: 1
 parallel(qualityAnalysis: {
-    // RUN SONAR ANALYSIS
-    node('linux') {
-        stage name: 'QUALITY_ANALYSIS', concurrency: 1
 
-        unarchive mapping: ['src/': '.', 'pom.xml': '.']
-
+    node('linux') { // RUN SONAR ANALYSIS
+        unarchive mapping: ['src.tar': '.']
         ensureMaven()
+        sh 'tar -x -f src.tar'
         sh 'mvn -o sonar:sonar'
     }
 }, performanceTest: {
-    // DEPLOY ON PERFS AND RUN JMETER STRESS TEST
-    node('linux') {
-        stage name: 'PERFS', concurrency: 1
+
+    node('linux') { // DEPLOY ON PERFS AND RUN JMETER STRESS TEST
 
         sh 'rm -rf *'
-        unarchive mapping: ['src/': '.', 'pom.xml': '.', 'target/petclinic.war': 'petclinic.war']
+        unarchive mapping: ['src.tar': '.', 'target/petclinic.war': 'petclinic.war']
 
         deployApp 'petclinic.war', perfsCatalinaBase, perfsHttpPort
 
         ensureMaven()
+        sh 'tar -x -f src.tar'
         sh 'mvn -o jmeter:jmeter'
+
+        shutdownApp(perfsCatalinaBase)
     }
 })
 
-// DEPLOY ON THE QA SERVER
-node('linux') {
-    stage name: 'QA', concurrency: 1
+stage name: 'QA', concurrency: 1
+checkpoint 'ENTER QA'
+
+node('linux') { // DEPLOY ON THE QA SERVER
     sh 'rm -rf *'
     unarchive mapping: ['target/petclinic.war': 'petclinic.war']
 
     deployApp 'petclinic.war', qaCatalinaBase, qaHttpPort
 }
 
+
+stage name: 'Staging', concurrency: 1
+checkpoint 'CHOOSE TO ENTER STAGING'
+
 input message: "Does staging app http://localhost:$qaHttpPort/ look good? If yes, we deploy on staging.", ok: "DEPLOY TO STAGING!"
 
-stage name: 'STAGING', concurrency: 1
-
-node('linux') {
-    // DEPLOY ON STAGING
+node('linux') { // DEPLOY ON STAGING
     unarchive mapping: ['target/petclinic.war': 'petclinic.war']
     deployApp 'petclinic.war', stagingCatalinaBase, stagingHttpPort
     echo "Application is available on STAGING at http://localhost:$stagingHttpPort/"
@@ -90,10 +93,19 @@ def deployApp(war, catalinaBase, httpPort) {
     }
 }
 
-/*
+/**
+ * Shutdown the local Tomcat server identified by the given "catalinaBase"
+ *
+ * @param catalinaBase path to the catalina base
+ */
+def shutdownApp(catalinaBase) {
+    sh "${catalinaBase}/bin/shutdown.sh || :" // use "|| :" to ignore exception if server is not started
+    echo "$catalinaBase server is stopped"
+}
+
+/**
  * Deploy Maven on the slave if needed and add it to the path
  */
 def ensureMaven() {
     env.PATH = "${tool 'Maven 3.x'}/bin:${env.PATH}"
 }
-
