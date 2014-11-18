@@ -15,7 +15,9 @@ stage 'Build'
 node('linux') { // COMPILE AND JUNIT
     def src = 'https://github.com/cyrille-leclerc/spring-petclinic.git'
     // def src = '/Users/cleclerc/git/cyrille-leclerc/spring-petclinic'
-    git url: src
+
+
+    git url: 'https://github.com/cyrille-leclerc/spring-petclinic.git'
 
     ensureMaven()
     sh 'mvn -o clean package'
@@ -64,7 +66,7 @@ node('linux') { // DEPLOY ON THE QA SERVER
 stage name: 'Staging', concurrency: 1
 checkpoint 'CHOOSE TO ENTER STAGING'
 
-input message: "Does staging app http://localhost:$qaHttpPort/ look good? If yes, we deploy on staging.", ok: "DEPLOY TO STAGING!"
+input message: "Does QA app http://localhost:$qaHttpPort/ look good? If yes, we deploy on staging.", ok: "DEPLOY TO STAGING!"
 
 node('linux') { // DEPLOY ON STAGING
     unarchive mapping: ['target/petclinic.war': 'petclinic.war']
