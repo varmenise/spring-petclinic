@@ -475,4 +475,10 @@
 		</plugins>
 	</build>
 	<url>demopetclinic</url>
+	<distributionManagement>
+    <repository>
+      <id>valentina-snapshot</id>
+
+    </repository>
+  </distributionManagement>
 </project>
