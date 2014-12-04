@@ -452,5 +452,10 @@
 			<name>valentina Release Repository</name>
 			<url>dav:https://repository-valentina.forge.cloudbees.com/snapshot/</url>
 		</repository>
+		<repository>
+			<id>valentina-release</id>
+			<name>valentina Release Repository</name>
+			<url>dav:https://repository-valentina.forge.cloudbees.com/release/</url>
+		</repository>
 	</distributionManagement>
 </project>
