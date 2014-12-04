@@ -447,15 +447,27 @@
 	</build>
 	<url>demopetclinic</url>
 	<distributionManagement>
-		<repository>
+		<snapshotRepository>
 			<id>valentina-snapshot</id>
 			<name>valentina Release Repository</name>
 			<url>dav:https://repository-valentina.forge.cloudbees.com/snapshot/</url>
-		</repository>
+			<releases>
+				<enabled>false</enabled>
+			</releases>
+			<snapshots>
+				<enabled>true</enabled>
+			</snapshots>
+		</snapshotRepository>
 		<repository>
 			<id>valentina-release</id>
 			<name>valentina Release Repository</name>
 			<url>dav:https://repository-valentina.forge.cloudbees.com/release/</url>
+			<releases>
+				<enabled>true</enabled>
+			</releases>
+			<snapshots>
+				<enabled>false</enabled>
+			</snapshots>
 		</repository>
 	</distributionManagement>
 </project>
