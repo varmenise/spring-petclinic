@@ -3,7 +3,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>org.springframework.samples</groupId>
 	<artifactId>spring-petclinic</artifactId>
-	<version>1.0.0-clc</version>
+	<version>1.0.0-SNAPSHOT</version>
 	<name>petclinic</name>
 	<packaging>war</packaging>
 	<scm>
@@ -323,6 +323,10 @@
 		</dependencies>
 	</dependencyManagement>
 	<!-- Maven plugin versions are mentioned in order to guarantee the build reproducibility in the long term -->
+	 <scm>
+        <connection>scm:git:https://github.com/varmenise/spring-petclinic.git</connection>
+ 
+    </scm>  
 	<build>
 		<defaultGoal>install</defaultGoal>
 		<testResources>
