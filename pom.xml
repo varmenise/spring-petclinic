@@ -3,13 +3,14 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>org.springframework.samples</groupId>
 	<artifactId>spring-petclinic</artifactId>
-	<version>1.0.0-SNAPSHOT</version>
+	<version>1.0.5-SNAPSHOT</version>
 	<name>petclinic</name>
 	<packaging>war</packaging>
 	<scm>
 		<connection>scm:git:https://github.com/varmenise/spring-petclinic.git</connection>
 		<developerConnection>scm:git:https://github.com/varmenise/spring-petclinic.git</developerConnection>
-	</scm>
+	  <tag>HEAD</tag>
+  </scm>
 	<properties>
 		<!-- Generic properties -->
 		<java.version>1.6</java.version>
@@ -342,7 +343,7 @@
 				<version>3.0</version>
 				<configuration>
 					<compilerArguments>
-						<Xlint/>
+						<Xlint />
 					</compilerArguments>
 					<verbose>false</verbose>
 					<source>${java.version}</source>
