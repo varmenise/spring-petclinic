@@ -7,8 +7,8 @@
 	<name>petclinic</name>
 	<packaging>war</packaging>
 	<scm>
-		<connection>scm:git:https://github.com/cyrille-leclerc/spring-petclinic.git</connection>
-		<developerConnection>scm:git:https://github.com/cyrille-leclerc/spring-petclinic.git</developerConnection>
+		<connection>scm:git:https://github.com/varmenise/spring-petclinic.git</connection>
+		<developerConnection>scm:git:https://github.com/varmenise/spring-petclinic.git</developerConnection>
 	</scm>
 	<properties>
 		<!-- Generic properties -->
@@ -323,10 +323,6 @@
 		</dependencies>
 	</dependencyManagement>
 	<!-- Maven plugin versions are mentioned in order to guarantee the build reproducibility in the long term -->
-	 <scm>
-        <connection>scm:git:https://github.com/varmenise/spring-petclinic.git</connection>
- 
-    </scm>  
 	<build>
 		<defaultGoal>install</defaultGoal>
 		<testResources>
