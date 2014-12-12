@@ -40,7 +40,7 @@
             </elementProp>
             <elementProp name="rootContext" elementType="Argument">
               <stringProp name="Argument.name">rootContext</stringProp>
-              <stringProp name="Argument.value"></stringProp>
+              <stringProp name="Argument.value">petclinic</stringProp>
               <stringProp name="Argument.metadata">=</stringProp>
             </elementProp>
             <elementProp name="thinkTimeMin" elementType="Argument">
