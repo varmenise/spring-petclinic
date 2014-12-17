@@ -30,7 +30,7 @@
           <collectionProp name="Arguments.arguments">
             <elementProp name="hostname" elementType="Argument">
               <stringProp name="Argument.name">hostname</stringProp>
-              <stringProp name="Argument.value">valentina-workflow-cd-tomcat.beesshop.org</stringProp>
+              <stringProp name="Argument.value">localhost</stringProp>
               <stringProp name="Argument.metadata">=</stringProp>
             </elementProp>
             <elementProp name="port" elementType="Argument">
@@ -40,7 +40,7 @@
             </elementProp>
             <elementProp name="rootContext" elementType="Argument">
               <stringProp name="Argument.name">rootContext</stringProp>
-              <stringProp name="Argument.value">petclinic</stringProp>
+              <stringProp name="Argument.value">/</stringProp>
               <stringProp name="Argument.metadata">=</stringProp>
             </elementProp>
             <elementProp name="thinkTimeMin" elementType="Argument">
@@ -89,7 +89,7 @@
           <stringProp name="RandomTimer.range">${thinktimeDeviation}</stringProp>
         </GaussianRandomTimer>
         <hashTree/>
-        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="Home" enabled="false">
+        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="Home" enabled="true">
           <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="User Defined Variables" enabled="true">
             <collectionProp name="Arguments.arguments"/>
           </elementProp>
