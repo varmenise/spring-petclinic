@@ -3,14 +3,14 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>org.springframework.samples</groupId>
 	<artifactId>spring-petclinic</artifactId>
-	<version>1.0.11-localhost</version>
+	<version>1.0.12-localhost-SNAPSHOT</version>
 	<name>petclinic</name>
 	<packaging>war</packaging>
 	<scm>
 		<connection>scm:git:git@github.com:varmenise/spring-petclinic.git</connection>
 		<developerConnection>scm:git:git@github.com:varmenise/spring-petclinic.git</developerConnection>
 		<url>http://github.com/varmenise/spring-petclinic.git</url>
-	  <tag>spring-petclinic-1.0.11-localhost</tag>
+	  <tag>spring-petclinic-1.0.10-localhost</tag>
   </scm>
 	<properties>
 		<!-- Generic properties -->
